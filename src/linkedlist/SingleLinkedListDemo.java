@@ -114,6 +114,7 @@ class SingleLinkedList{
                 break;
             }else if(temp.next.no == node.no){//已经存在
                 flag = true;
+                break;
             }
             temp = temp.next;//后移
         }
@@ -187,8 +188,8 @@ class SingleLinkedList{
                 flag = true;
                 break;
             }
+            temp = temp.next;//后移
         }
-        temp = temp.next;//后移
         if(flag){//找到
             temp.next = temp.next.next;
         }else{
