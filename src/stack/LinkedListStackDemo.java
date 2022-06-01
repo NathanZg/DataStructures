@@ -89,6 +89,10 @@ class LinkedListStack{
         return head.getNext() == null;
     }
 
+    public Node getHead() {
+        return head;
+    }
+
     //入栈
     public void push(int value){
         Node node = new Node(value, head.getNext());
