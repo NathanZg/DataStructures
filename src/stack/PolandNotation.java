@@ -53,6 +53,7 @@ public class PolandNotation {
         List<String> list = getListString(suffixExpression);
         int result = calculate(list);
         System.out.println(expression+"="+result);
+        scanner.close();
     }
 
     //将逆波兰表达式，依次将数据和运算符 放到arraylist中
