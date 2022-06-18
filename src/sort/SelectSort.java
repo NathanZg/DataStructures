@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author Ekertree
  * @since JDK 1.8
  */
-public class selectSort {
+public class SelectSort {
     public static void main(String[] args) {
         int arr[] = {17,9,-1,10,-2};
         selectSort(arr);
