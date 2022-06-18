@@ -102,13 +102,12 @@ public class QuickSort {
                 r--;
             }
 
-            //以最左边的为pivot要先进行右递归
-            if(l < right) {
-                QuickSort(arr, l, right);
+            if (left < r) {
+                QuickSort2(arr,left,r);
             }
 
-            if (left < r) {
-                QuickSort(arr,left,r);
+            if(l < right) {
+                QuickSort2(arr, l, right);
             }
         }
     }
