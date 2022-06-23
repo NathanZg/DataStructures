@@ -18,7 +18,7 @@ public class BinarySearch {
     public static void main(String[] args) {
         //数组必须有序
         int[] arr = {1,1,1,1,1,1,18,1000,1000,1000,1000,1000,1234};
-        int i = binarySearch(arr, 0, arr.length - 1, 1000);
+        int i = binarySearch(arr, 0, arr.length - 1, 0);
         List<Integer> list = binarySearch2(arr, 0, arr.length - 1, 1000);
         System.out.println(i);
         list.forEach(t-> System.out.println(t));
@@ -33,7 +33,10 @@ public class BinarySearch {
      * @return 找到返回下标，找不到返回-1
      */
     public static int binarySearch(int[] arr,int left,int right,int findVal){
-        if (left > right) {
+        //左下标大于右下标 找不到
+        //小于arr[0] 则不存在，提前终止
+        //大于arr[arr.length - 1] 不存在，提前终止
+        if (left > right || findVal < arr[0] || findVal > arr[arr.length-1] ) {
             return -1;
         }
         int mid = (left + right) / 2;
@@ -54,7 +57,10 @@ public class BinarySearch {
     * 3、向mid右扫描，将所有相同值的下标加入arraylist
     * */
     public static List<Integer> binarySearch2(int[] arr, int left, int right, int findVal){
-        if (left > right) {
+        //左下标大于右下标 找不到
+        //小于arr[0] 则不存在，提前终止
+        //大于arr[arr.length - 1] 不存在，提前终止
+        if (left > right || findVal < arr[0] || findVal > arr[arr.length-1]) {
             return new ArrayList<Integer>();
         }
         int mid = (left + right) / 2;
