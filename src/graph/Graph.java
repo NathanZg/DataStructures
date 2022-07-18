@@ -2,6 +2,7 @@ package graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * ClassName: Graph
@@ -32,21 +33,36 @@ public class Graph {
     }
 
     public static void main(String[] args) {
-        int n = 5;
-        String vertexs[] = {"A", "B", "C", "D", "E"};
+        int n = 8;
+        //String[] vertexes = {"A", "B", "C", "D", "E"};
+        String[] vertexes = {"1", "2", "3", "4", "5", "6", "7", "8"};
         Graph graph = new Graph(n);
-        for (String s : vertexs) {
+        for (String s : vertexes) {
             graph.insertVertex(s);
         }
+//        graph.insertEdge(0, 1, 1);
+//        graph.insertEdge(0, 2, 1);
+//        graph.insertEdge(1, 2, 1);
+//        graph.insertEdge(1, 3, 1);
+//        graph.insertEdge(1, 4, 1);
         graph.insertEdge(0, 1, 1);
         graph.insertEdge(0, 2, 1);
-        graph.insertEdge(1, 2, 1);
         graph.insertEdge(1, 3, 1);
         graph.insertEdge(1, 4, 1);
-
+        graph.insertEdge(3, 7, 1);
+        graph.insertEdge(4, 7, 1);
+        graph.insertEdge(2, 5, 1);
+        graph.insertEdge(2, 6, 1);
+        graph.insertEdge(5, 6, 1);
         graph.ShowGraph();
         System.out.println("dfs深度遍历：");
         graph.dfs();
+        for (int i = 0; i < graph.getNumOfVertex(); i++) {
+            graph.isVisited[i] = false;
+        }
+        System.out.println();
+        System.out.println("bfs广度优先遍历：");
+        graph.bfs();
     }
 
     //插入结点
@@ -153,6 +169,56 @@ public class Graph {
                     如果是非连通图，则每一次进入方法遍历的只是部分连通的结点或者孤立的点
                  */
                 dfs(isVisited, i);
+            }
+        }
+    }
+
+    //广度优先遍历
+    //对于连通图
+    private void bfs(boolean[] isVisited, int i) {
+        //队列头 结点的下标
+        int headIndex;
+        //邻接结点的下标
+        int neighborIndex;
+
+        //队列，记录结点的访问顺序
+        LinkedList<Integer> queue = new LinkedList<>();
+
+        //访问当前结点
+        System.out.print(getValueByIndex(i) + "->");
+        //标记已访问
+        isVisited[i] = true;
+        //将结点加入队列
+        queue.addLast(i);
+
+        while (!queue.isEmpty()) {
+            //取出队列的头结点 下标
+            headIndex = (Integer) queue.removeFirst();
+            //得到第一个邻接点的 下标
+            neighborIndex = getFirstNeighbor(headIndex);
+            while (neighborIndex != -1) {
+                //没有访问过
+                if (!isVisited[neighborIndex]) {
+                    //输出
+                    System.out.print(getValueByIndex(neighborIndex) + "->");
+                    //标记已经访问
+                    isVisited[neighborIndex] = true;
+                    //入队
+                    queue.addLast(neighborIndex);
+                }
+                //如果访问过了
+                //找headIndex的结点的下一个邻接点
+                neighborIndex = getNextNeighbor(headIndex, neighborIndex);
+            }
+        }
+    }
+
+    //重载 bfs
+    //考虑非连通图
+    public void bfs() {
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (!isVisited[i]) {
+                bfs(isVisited, i);
             }
         }
     }
